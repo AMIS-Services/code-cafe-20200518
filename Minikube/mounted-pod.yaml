@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mounted-pod
+  labels:
+    name: demo-pod
+spec:
+  volumes:
+    - name: mounted-pod-storage
+      hostPath:
+        # directory location on host
+        path: /c/Users/rpaul67/development/nginx/html
+  containers:
+    - name: mounted-pod-container
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: mounted-pod-storage
